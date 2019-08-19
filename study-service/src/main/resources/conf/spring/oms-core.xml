@@ -18,5 +18,44 @@
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	<context:annotation-config />
 
+    <context:component-scan base-package="com.qh.study.*" />
+
+    <!-- 加载资源配置信息 -->
+    <bean id="propertyConfig"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>classpath:conf/setting.properties</value>
+        </property>
+        <property name="placeholderPrefix" value="@{">
+        </property>
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+    </bean>
+
+
+    <jee:jndi-lookup id="dataSourceMycat" jndi-name="@{datasourceMycatBiz.jndi}" proxy-interface="javax.sql.DataSource" lookup-on-startup="false" />
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+
+                 <property name="dataSource" ref="dataSourceMycat"></property>
+
+
+                 <property name="configLocation" value="classpath:conf/spring/setting.properties"></property>
+
+   </bean>
+
+    <!-- 声明使用注解式事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSourceMycat" />
+    </bean>
+
+    <!-- 配置spring事务模板 -->
+    <bean id="jdbcTemplateSlave" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource">
+            <ref local="dataSourceMycat" />
+        </property>
+    </bean>
 
 </beans>

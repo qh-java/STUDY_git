@@ -37,9 +37,9 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 
                  <property name="dataSource" ref="dataSourceMycat"></property>
+                      <!--<property name="configLocation" value="classpath:mybatis.xml"></property>-->
 
-
-                 <property name="configLocation" value="classpath:conf/spring/setting.properties"></property>
+                   <property name="mapperLocations" value="classpath*:conf/sqlMap/sqlMap_*.xml"></property>
 
    </bean>
 
@@ -50,6 +50,12 @@
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSourceMycat" />
     </bean>
+
+    <!-- 5.配置mybatisDao接口扫描MapperScannerConfigurer -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.zhiyou.han.dao"></property>
+    </bean>
+
 
     <!-- 配置spring事务模板 -->
     <bean id="jdbcTemplateSlave" class="org.springframework.jdbc.core.JdbcTemplate">

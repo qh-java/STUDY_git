@@ -43,17 +43,22 @@
 
    </bean>
 
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+        <constructor-arg name="executorType" value="BATCH"></constructor-arg>
+    </bean>
+
+    <!-- 5.配置mybatisDao接口扫描MapperScannerConfigurer -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.qh.study.dao"></property>
+    </bean>
+
     <!-- 声明使用注解式事务 -->
     <tx:annotation-driven transaction-manager="transactionManager" />
 
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSourceMycat" />
-    </bean>
-
-    <!-- 5.配置mybatisDao接口扫描MapperScannerConfigurer -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.zhiyou.han.dao"></property>
     </bean>
 
 

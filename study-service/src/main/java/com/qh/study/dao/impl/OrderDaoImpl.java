@@ -1,6 +1,7 @@
 package com.qh.study.dao.impl;
 
 import com.qh.study.bean.Ord;
+import com.qh.study.bean.Ordi;
 import com.qh.study.dao.OrderDao;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class OrderDaoImpl implements OrderDao {
 
     @Autowired
-    SqlSession sqlSession;
+    private SqlSession sqlSession;
 
 
     public void insertOrdInfo(Ord ord) {
@@ -22,7 +23,13 @@ public class OrderDaoImpl implements OrderDao {
        }
     }
 
-    public void insertOrdiInfo() {
+    public void insertOrdiInfo(Ordi ordi) {
+        try{
+            sqlSession.insert("order.insertOrdInfo",ordi);
+        }catch(Exception ex){
 
+        }finally{
+
+        }
     }
 }

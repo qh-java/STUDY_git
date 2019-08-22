@@ -1,13 +1,6 @@
-package com.qh.study.bean;
+package com.qh.study.dto;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
-
-public class Ord implements Serializable {
-
-
-
-    private  Long rowId;
+public class OrderMessageHeaderDTO {
 
     private String orderId;
 
@@ -19,32 +12,13 @@ public class Ord implements Serializable {
 
     private String orderComments;
 
-    private Integer payItemNum;
+    private String payItemNum;
 
     private String orderCategory;
 
-    private Integer totalItem ;
+    private String totalItem ;
 
     private String memInCardNo;
-
-    private String createdBy;
-
-    private String lastUpdBy;
-
-    /** The created time. */
-    private Timestamp createdTime;
-
-    private Integer activeFlag;
-
-    private String globalId;
-
-    public Long getRowId() {
-        return rowId;
-    }
-
-    public void setRowId(Long rowId) {
-        this.rowId = rowId;
-    }
 
     public String getOrderId() {
         return orderId;
@@ -86,11 +60,11 @@ public class Ord implements Serializable {
         this.orderComments = orderComments;
     }
 
-    public Integer getPayItemNum() {
+    public String getPayItemNum() {
         return payItemNum;
     }
 
-    public void setPayItemNum(Integer payItemNum) {
+    public void setPayItemNum(String payItemNum) {
         this.payItemNum = payItemNum;
     }
 
@@ -102,11 +76,11 @@ public class Ord implements Serializable {
         this.orderCategory = orderCategory;
     }
 
-    public Integer getTotalItem() {
+    public String getTotalItem() {
         return totalItem;
     }
 
-    public void setTotalItem(Integer totalItem) {
+    public void setTotalItem(String totalItem) {
         this.totalItem = totalItem;
     }
 
@@ -116,45 +90,5 @@ public class Ord implements Serializable {
 
     public void setMemInCardNo(String memInCardNo) {
         this.memInCardNo = memInCardNo;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getLastUpdBy() {
-        return lastUpdBy;
-    }
-
-    public void setLastUpdBy(String lastUpdBy) {
-        this.lastUpdBy = lastUpdBy;
-    }
-
-    public Timestamp getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(Timestamp createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public Integer getActiveFlag() {
-        return activeFlag;
-    }
-
-    public void setActiveFlag(Integer activeFlag) {
-        this.activeFlag = activeFlag;
-    }
-
-    public String getGlobalId() {
-        return globalId;
-    }
-
-    public void setGlobalId(String globalId) {
-        this.globalId = globalId;
     }
 }

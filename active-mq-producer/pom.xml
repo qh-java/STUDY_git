@@ -2,16 +2,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>study-parent-pom</artifactId>
+        <groupId>com.qh.study</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.qh.study</groupId>
-    <artifactId>study-parent-pom</artifactId>
+    <artifactId>active-mq-producer</artifactId>
     <packaging>pom</packaging>
-    <name>study-parent-pom</name>
-    <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>study-pom</module>
-        <module>active-mq-producer</module>
-        <module>active-mq-consumer</module>
+        <module>mq-producer-web</module>
+        <module>mq-producer-intf</module>
+        <module>mq-producer-service</module>
     </modules>
+
+
 </project>

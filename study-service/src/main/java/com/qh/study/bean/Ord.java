@@ -5,25 +5,12 @@ import java.sql.Timestamp;
 
 public class Ord implements Serializable {
 
-
-
     private  Long rowId;
 
     private String orderId;
 
     private String b2cOrderId;
 
-    private String orderRes;
-
-    private String orderChannel;
-
-    private String orderComments;
-
-    private Integer payItemNum;
-
-    private String orderCategory;
-
-    private Integer totalItem ;
 
     private String memInCardNo;
 
@@ -60,54 +47,6 @@ public class Ord implements Serializable {
 
     public void setB2cOrderId(String b2cOrderId) {
         this.b2cOrderId = b2cOrderId;
-    }
-
-    public String getOrderRes() {
-        return orderRes;
-    }
-
-    public void setOrderRes(String orderRes) {
-        this.orderRes = orderRes;
-    }
-
-    public String getOrderChannel() {
-        return orderChannel;
-    }
-
-    public void setOrderChannel(String orderChannel) {
-        this.orderChannel = orderChannel;
-    }
-
-    public String getOrderComments() {
-        return orderComments;
-    }
-
-    public void setOrderComments(String orderComments) {
-        this.orderComments = orderComments;
-    }
-
-    public Integer getPayItemNum() {
-        return payItemNum;
-    }
-
-    public void setPayItemNum(Integer payItemNum) {
-        this.payItemNum = payItemNum;
-    }
-
-    public String getOrderCategory() {
-        return orderCategory;
-    }
-
-    public void setOrderCategory(String orderCategory) {
-        this.orderCategory = orderCategory;
-    }
-
-    public Integer getTotalItem() {
-        return totalItem;
-    }
-
-    public void setTotalItem(Integer totalItem) {
-        this.totalItem = totalItem;
     }
 
     public String getMemInCardNo() {

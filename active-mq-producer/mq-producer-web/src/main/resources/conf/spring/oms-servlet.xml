@@ -19,9 +19,8 @@
    	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
    	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:component-scan base-package="com.study.qh" />
-    <mvc:annotation-driven />
-
+    <context:component-scan base-package="com.mq.qh"/>
+    <mvc:annotation-driven/>
     <!--&lt;!&ndash; 加载资源配置信息 &ndash;&gt;-->
     <bean id="propertyConfig"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -30,10 +29,11 @@
         </property>
         <property name="placeholderPrefix" value="${">
         </property>
-        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
     </bean>
 
-    <amq:connectionFactory id="amqConnectionFactory" brokerURL="${activemq_url}" userName="${activemq_username}" password="${activemq_password}"/>
+    <amq:connectionFactory id="amqConnectionFactory" brokerURL="${activemq_url}" userName="${activemq_username}"
+                           password="${activemq_password}"/>
     <!-- 这里可以采用连接池的方式连接PooledConnectionFactoryBean -->
     <bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
         <!-- 配置连接 -->
@@ -49,25 +49,13 @@
     </bean>
 
     <!-- 配置JMS模板（topic），Spring提供的JMS工具类，它发送、接收消息。 -->
-    <!-- 为了测试发送消息，保留jmsTemplate的配置，实际不存在发送，只需要配置监听即可 -->
-    <!--<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">-->
-    <!--<property name="connectionFactory" ref="connectionFactory"/>-->
-    <!--<property name="defaultDestination" ref="topic"/>-->
-    <!--&lt;!&ndash; 非pub/sub模型（发布/订阅），true为topic,false为queue &ndash;&gt;-->
-    <!--<property name="pubSubDomain" value="true"/>-->
-    <!--</bean>-->
-
-    <!-- 监听方式，这种方式更实用，可以一直监听消息 -->
-    <bean id="orderListener" class="com.study.qh.listener.OrderLitenter"/>
-    <bean id="defaultMessageListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
         <property name="connectionFactory" ref="connectionFactory"/>
-        <!-- 填写上述定义中的实际要消费的队列 或主题 -->
-        <property name="destination" ref="qh_lf"/>
-        <!--业务要处理的类-->
-        <property name="messageListener" ref="orderListener"/>
-
-        <property name="concurrency" value="1-10"/>
-        <property name="sessionTransacted" value="true"/>
-        <property name="exposeListenerSession" value="false"/>
+        <property name="defaultDestination" ref="qh_lf"/>
+        <!-- 非pub/sub模型（发布/订阅），true为topic,false为queue -->
+        <property name="pubSubDomain" value="true"/>
     </bean>
+
+    <bean id="orderProducer" class="com.mq.qh.mq.OrderProducer"/>
+
 </beans>

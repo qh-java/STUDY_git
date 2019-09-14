@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://cxf.apache.org/core"
-	   xmlns:p="http://cxf.apache.org/policy" xmlns:ss="http://www.springframework.org/schema/security"
-	   xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:jee="http://www.springframework.org/schema/jee"
-	   xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
-	   xmlns:tx="http://www.springframework.org/schema/tx"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://cxf.apache.org/core"
+       xmlns:p="http://cxf.apache.org/policy" xmlns:ss="http://www.springframework.org/schema/security"
+       xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:amq="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
    	http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
    	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
    	http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
@@ -21,17 +22,17 @@
     <context:component-scan base-package="com.qh.study.*" />
 
     <!--&lt;!&ndash; 加载资源配置信息 &ndash;&gt;-->
-    <!--<bean id="propertyConfig"-->
-          <!--class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
-        <!--<property name="location">-->
-            <!--<value>classpath:conf/setting.properties</value>-->
-        <!--</property>-->
-        <!--<property name="placeholderPrefix" value="@{">-->
-        <!--</property>-->
-        <!--<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />-->
-    <!--</bean>-->
+    <bean id="propertyConfig"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>classpath:conf/setting.properties</value>
+        </property>
+        <property name="placeholderPrefix" value="${">
+        </property>
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+    </bean>
 
-    <context:property-placeholder location="classpath:conf/*.properties"/>
+    <!--<context:property-placeholder location="classpath:conf/*.properties"/>-->
     <!--<jee:jndi-lookup id="dataSourceMycat" jndi-name="@{datasourceMycatBiz.jndi}" proxy-interface="javax.sql.DataSource" lookup-on-startup="false" />-->
 
     <!-- 基于Druid数据库链接池的数据源配置 -->
@@ -83,15 +84,16 @@
 
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSourceMycat" />
+        <property name="dataSource" ref="dataSource" />
     </bean>
 
 
     <!-- 配置spring事务模板 -->
     <bean id="jdbcTemplateSlave" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource">
-            <ref local="dataSourceMycat" />
+            <ref local="dataSource" />
         </property>
     </bean>
+
 
 </beans>

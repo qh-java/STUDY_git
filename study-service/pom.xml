@@ -113,5 +113,32 @@
             <artifactId>spring-jms</artifactId>
             <version>3.2.8.RELEASE</version>
         </dependency>
+        <!-- config redis data and client jar-->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>1.0.2.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>2.2.2</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- MySql 5.5 Connector -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>6.0.6</version>
+            <scope>runtime</scope>
+        </dependency>
+
+
     </dependencies>
 </project>

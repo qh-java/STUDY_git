@@ -13,11 +13,11 @@ public class OrderDaoImpl implements OrderDao {
 
     @Autowired
     private SqlSession sqlSession;
-
+    SqlSessionTemplate sqlSessionTemplate;
 
     public void insertOrdInfo(Ord ord) {
        try{
-           sqlSession.insert("order.insertOrdInfo",ord);
+           sqlSession.insert("order.insertOrdInfo",Ord.class);
        }catch(Exception ex){
 
        }finally{
@@ -27,7 +27,7 @@ public class OrderDaoImpl implements OrderDao {
 
     public void insertOrdiInfo(Ordi ordi) {
         try{
-            sqlSession.insert("order.insertOrdInfo",ordi);
+            sqlSession.insert("order.insertOrdInfo",Ordi.class);
         }catch(Exception ex){
 
         }finally{

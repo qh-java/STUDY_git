@@ -27,7 +27,6 @@ public class Ordi implements Serializable {
 
     private Integer activeFlag;
 
-    private String globalId;
 
     private String specialBusiness;
 
@@ -109,14 +108,6 @@ public class Ordi implements Serializable {
 
     public void setActiveFlag(Integer activeFlag) {
         this.activeFlag = activeFlag;
-    }
-
-    public String getGlobalId() {
-        return globalId;
-    }
-
-    public void setGlobalId(String globalId) {
-        this.globalId = globalId;
     }
 
     public String getSpecialBusiness() {

@@ -96,4 +96,7 @@
     </bean>
 
 
+    <!-- 引入同文件夹下的redis属性配置文件 -->
+    <!--<import resource="/conf/spring/redis-context.xml"/>-->
+
 </beans>

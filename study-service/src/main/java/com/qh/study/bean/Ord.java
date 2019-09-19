@@ -23,7 +23,6 @@ public class Ord implements Serializable {
 
     private Integer activeFlag;
 
-    private String globalId;
 
     public Long getRowId() {
         return rowId;
@@ -89,11 +88,4 @@ public class Ord implements Serializable {
         this.activeFlag = activeFlag;
     }
 
-    public String getGlobalId() {
-        return globalId;
-    }
-
-    public void setGlobalId(String globalId) {
-        this.globalId = globalId;
-    }
 }

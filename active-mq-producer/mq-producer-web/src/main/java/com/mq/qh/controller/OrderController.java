@@ -1,6 +1,5 @@
 package com.mq.qh.controller;
 
-import com.mq.qh.mq.OrderProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,12 +8,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/data")
 public class OrderController {
 
-    @Autowired
-    OrderProducer orderProducer;
-
-    @RequestMapping("/toData")
-    public String toData(String jsonStr){
-        orderProducer.sendToOmsq(jsonStr);
-        return  null;
+//    @Autowired
+//    OrderProducer orderProducer;
+//
+//    @RequestMapping("/toData")
+//    public String toData(String jsonStr){
+//        orderProducer.sendToOmsq(jsonStr);
+//        return  null;
+//    }
+    @RequestMapping("/index")
+    public String index(String jsonStr){
+        //orderProducer.sendToOmsq(jsonStr);
+        return  "index";
     }
+
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qh.study.dao.OrderDao">
+    <resultMap type="com.qh.study.bean.Ord" id="ord">
+        <id property="rowId" column="ROW_ID"/>
+        <result property="orderId" column="ORDER_ID"/>
+        <result property="b2cOrderId" column="B2C_ORDER_ID"/>
+        <result property="memInCardNo" column="MEM_IN_CARD_NO"/>
+        <result property="createdBy" column="CREATED_BY"/>
+        <result property="lastUpdBy" column="LAST_UPD_BY"/>
+        <result property="createdTime" column="CREATED_TIME"/>
+        <result property="activeFlag" column="ACTIVE_FLAG"/>
+    </resultMap>
+
+    <resultMap type="com.qh.study.bean.Ordi" id="ordi">
+        <id property="rowId" column="ROW_ID"/>
+        <result property="orderId" column="ORDER_ID"/>
+        <result property="b2cOrderId" column="B2C_ORDER_ID"/>
+        <result property="b2cOrderItemId" column="B2C_ORDER_ITEM_ID"/>
+        <result property="orderType" column="ORDER_TYPE"/>
+        <result property="memInCardNo" column="MEM_IN_CARD_NO"/>
+        <result property="createdBy" column="CREATED_BY"/>
+        <result property="lastUpdBy" column="LAST_UPD_BY"/>
+        <result property="createdTime" column="CREATED_TIME"/>
+        <result property="activeFlag" column="ACTIVE_FLAG"/>
+        <result property="specialBusiness" column="SPECIAL_BUSINESS"/>
+    </resultMap>
+
+    <insert id="insertOrdInfo" parameterType="ord">
+  	insert into so_ord(ORDER_ID,B2C_ORDER_ID,MEM_IN_CARD_NO,CREATED_BY,LAST_UPD_BY,CREATED_TIME,ACTIVE_FLAG)
+  	values
+  	(#{orderId},#{b2cOrderId},#{memInCardNo},#{createdBy},#{lastUpdBy},#{createdTime},#{activeFlag})
+  </insert>
+
+    <insert id="insertOrdiInfo" parameterType="ordi">
+  	insert into so_ord(ORDER_ID,B2C_ORDER_ID,MEM_IN_CARD_NO,CREATED_BY,LAST_UPD_BY,CREATED_TIME,ACTIVE_FLAG)
+  	values
+  	(#{orderId},#{b2cOrderId},#{memInCardNo},#{createdBy},#{lastUpdBy},#{createdTime},#{activeFlag})
+  </insert>
+</mapper>

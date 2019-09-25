@@ -32,42 +32,21 @@
         <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
     </bean>
 
-    <!--<context:property-placeholder location="classpath:conf/*.properties"/>-->
-    <!--<jee:jndi-lookup id="dataSourceMycat" jndi-name="@{datasourceMycatBiz.jndi}" proxy-interface="javax.sql.DataSource" lookup-on-startup="false" />-->
-
-    <!-- 基于Druid数据库链接池的数据源配置 -->
-    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-        <!-- 基本属性driverClassName、 url、user、password -->
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+    <bean id="dataSource" class="org.apache.ibatis.datasource.pooled.PooledDataSource">
+        <property name="driver" value="com.mysql.jdbc.Driver" />
         <property name="url" value="${jdbc.url}" />
         <property name="username" value="${jdbc.username}" />
         <property name="password" value="${jdbc.password}" />
-        <!-- 配置初始化大小、最小、最大 -->
-        <!-- 通常来说，只需要修改initialSize、minIdle、maxActive -->
-        <property name="initialSize" value="2" />
-        <property name="minIdle" value="2" />
-        <property name="maxActive" value="30" />
-        <property name="testWhileIdle" value="false" />
-        <!-- 配置获取连接等待超时的时间 -->
-        <property name="maxWait" value="5000" />
-        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
-        <property name="minEvictableIdleTimeMillis" value="30000" />
-        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
-        <property name="timeBetweenEvictionRunsMillis" value="60000" />
-        <!-- 解密密码必须要配置的项 -->
-        <property name="filters" value="config" />
-        <property name="connectionProperties" value="config.decrypt=true" />
     </bean>
 
-
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-
-                 <property name="dataSource" ref="dataSource"></property>
-                      <!--<property name="configLocation" value="classpath:mybatis.xml"></property>-->
-
-                   <property name="mapperLocations" value="classpath*:conf/sqlMap/sqlMap_*.xml"></property>
-
-   </bean>
+        <property name="dataSource" ref="dataSource" />
+        <!-- 指定sqlMapConfig总配置文件，订制的environment在spring容器中不再生效-->
+        <!--<property  name="configLocation"  value="classpath*:conf/sqlMap/sqlMap_*.xml"/>-->
+        <property name="mapperLocations" value="classpath*:conf/sqlMap/sqlMap_*.xml" />
+        <!--指定实体类映射文件，可以同时指定某一包以及子包下面的所有配置文件，mapperLocations和configLocation有一个即可，当需要为实体类指定别名时，可指定configLocation属性，再在mybatis总配置文件中采用mapper引入实体类映射文件 -->
+        <!-- <property  name="mapperLocations"  value="classpath*:com/xxt/ibatis/dbcp/**/*.xml"/>  -->
+    </bean>
 
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
@@ -90,13 +69,7 @@
 
     <!-- 配置spring事务模板 -->
     <bean id="jdbcTemplateSlave" class="org.springframework.jdbc.core.JdbcTemplate">
-        <property name="dataSource">
-            <ref local="dataSource" />
+        <property name="dataSource" ref="dataSource">
         </property>
     </bean>
-
-
-    <!-- 引入同文件夹下的redis属性配置文件 -->
-    <!--<import resource="/conf/spring/redis-context.xml"/>-->
-
 </beans>

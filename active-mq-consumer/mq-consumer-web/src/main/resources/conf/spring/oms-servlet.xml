@@ -19,27 +19,21 @@
    	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
    	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:component-scan base-package="com.mq.qh"/>
-    <mvc:annotation-driven/>
+    <context:component-scan base-package="com.study.qh" />
+    <mvc:annotation-driven />
 
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/"/>
-        <property name="suffix" value=".jsp"/>
-        <property name="contentType" value="text/html; charset=utf-8"/>
-    </bean>
     <!--&lt;!&ndash; 加载资源配置信息 &ndash;&gt;-->
-    <!--<bean id="propertyConfig"-->
-          <!--class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
-        <!--<property name="location">-->
-            <!--<value>classpath:conf/setting-web.properties</value>-->
-        <!--</property>-->
-        <!--<property name="placeholderPrefix" value="${">-->
-        <!--</property>-->
-        <!--<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>-->
-    <!--</bean>-->
+    <bean id="propertyConfig"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>classpath:conf/setting-web.properties</value>
+        </property>
+        <property name="placeholderPrefix" value="${">
+        </property>
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+    </bean>
 
-    <!--<amq:connectionFactory id="amqConnectionFactory" brokerURL="${activemq_url}" userName="${activemq_username}"-->
-                           <!--password="${activemq_password}"/>-->
+    <!--<amq:connectionFactory id="amqConnectionFactory" brokerURL="${activemq_url}" userName="${activemq_username}" password="${activemq_password}"/>-->
     <!--&lt;!&ndash; 这里可以采用连接池的方式连接PooledConnectionFactoryBean &ndash;&gt;-->
     <!--<bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">-->
         <!--&lt;!&ndash; 配置连接 &ndash;&gt;-->
@@ -55,13 +49,25 @@
     <!--</bean>-->
 
     <!--&lt;!&ndash; 配置JMS模板（topic），Spring提供的JMS工具类，它发送、接收消息。 &ndash;&gt;-->
-    <!--<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">-->
+    <!--&lt;!&ndash; 为了测试发送消息，保留jmsTemplate的配置，实际不存在发送，只需要配置监听即可 &ndash;&gt;-->
+    <!--&lt;!&ndash;<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">&ndash;&gt;-->
+    <!--&lt;!&ndash;<property name="connectionFactory" ref="connectionFactory"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<property name="defaultDestination" ref="topic"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash; 非pub/sub模型（发布/订阅），true为topic,false为queue &ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;<property name="pubSubDomain" value="true"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;</bean>&ndash;&gt;-->
+
+    <!--&lt;!&ndash; 监听方式，这种方式更实用，可以一直监听消息 &ndash;&gt;-->
+    <!--<bean id="orderListener" class="com.study.qh.listener.OrderLitenter"/>-->
+    <!--<bean id="defaultMessageListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">-->
         <!--<property name="connectionFactory" ref="connectionFactory"/>-->
-        <!--<property name="defaultDestination" ref="qh_lf"/>-->
-        <!--&lt;!&ndash; 非pub/sub模型（发布/订阅），true为topic,false为queue &ndash;&gt;-->
-        <!--<property name="pubSubDomain" value="true"/>-->
+        <!--&lt;!&ndash; 填写上述定义中的实际要消费的队列 或主题 &ndash;&gt;-->
+        <!--<property name="destination" ref="qh_lf"/>-->
+        <!--&lt;!&ndash;业务要处理的类&ndash;&gt;-->
+        <!--<property name="messageListener" ref="orderListener"/>-->
+
+        <!--<property name="concurrency" value="1-10"/>-->
+        <!--<property name="sessionTransacted" value="true"/>-->
+        <!--<property name="exposeListenerSession" value="false"/>-->
     <!--</bean>-->
-
-    <!--<bean id="orderProducer" class="com.mq.qh.mq.OrderProducer"/>-->
-
 </beans>

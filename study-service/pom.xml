@@ -32,7 +32,7 @@
                     <groupId>commons-logging</groupId>
                 </exclusion>
             </exclusions>
-            <version>4.3.6.RELEASE</version>
+            <version>5.2.20.RELEASE</version>
         </dependency>
 
 
